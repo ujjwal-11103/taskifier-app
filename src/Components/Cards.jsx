@@ -100,108 +100,113 @@ const Cards = () => {
 
 
     return (
-        <div className='bg-slate-500 flex justify-start items-start min-h-screen h-auto'>
+        <div className='bg-black text-white text-3xl font-semibold py-2'>
 
-            <div className="flex justify-between items-start flex-wrap gap-y-9 p-8">
+            <h1 className='text-center'>All Tasks</h1>
+            <div className='flex justify-start items-start min-h-screen h-auto bg-black text-white'>
 
-                {allItems.length !== 0 ?
-                    <>
-                        {allItems.map((val, i) => (
 
-                            <div key={i} className="p-2">
+                <div className="flex justify-between items-start flex-wrap gap-y-9 p-8">
 
-                                <Card
-                                    className='cursor-pointer'
-                                    title={val.heading}
-                                    onClick={() => handleClickCard(i)}
-                                    bordered={false}
-                                    style={{
-                                        width: 300,
-                                    }}
-                                >
-                                    <h1>{val.des}</h1>
+                    {allItems.length !== 0 ?
+                        <>
+                            {allItems.map((val, i) => (
 
-                                </Card>
+                                <div key={i} className="p-2">
 
-                            </div>
-                        ))}
-                    </>
-                    :
-                    <>
-                        <h1>No items yet</h1>
-                    </>
-                }
+                                    <Card
+                                        className='cursor-pointer'
+                                        title={val.heading}
+                                        onClick={() => handleClickCard(i)}
+                                        bordered={false}
+                                        style={{
+                                            width: 300,
+                                        }}
+                                    >
+                                        <h1>{val.des}</h1>
 
-                {/* Card modal */}
+                                    </Card>
 
-                {showInput ?
+                                </div>
+                            ))}
+                        </>
+                        :
+                        <>
+                            <h1>No items yet</h1>
+                        </>
+                    }
 
-                    <Modal open={isModalOpen} onCancel={handleCancel} footer={[
+                    {/* Card modal */}
 
-                        <Button key="Edit" onClick={() => handleEdit(clickIndex)}>
-                            Edit
-                        </Button>,
+                    {showInput ?
 
-                        showUpdate && (
-                            <Button key="Add" onClick={() => handleItems()}>
-                                Update
-                            </Button>),
+                        <Modal open={isModalOpen} onCancel={handleCancel} footer={[
 
-                        <Button key="Delete" type="primary" danger onClick={() => handleDelete(clickIndex)}>
-                            Delete
+                            <Button key="Edit" onClick={() => handleEdit(clickIndex)}>
+                                Edit
+                            </Button>,
+
+                            showUpdate && (
+                                <Button key="Add" onClick={() => handleItems()}>
+                                    Update
+                                </Button>),
+
+                            <Button key="Delete" type="primary" danger onClick={() => handleDelete(clickIndex)}>
+                                Delete
+                            </Button>
+                        ]}>
+                            <h1 className='font-semibold'> Heading :</h1>
+                            <Input className='w-3/4 mb-5' placeholder="Enter heading..." value={items} onChange={(e) => setItems(e.target.value)} />
+                            <h1 className='font-semibold'>Description :</h1>
+                            <TextArea placeholder='Enter description...' rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
+
+                        </Modal>
+
+                        :
+
+                        <Modal open={isModalOpen} onCancel={handleCancel} footer={[
+
+                            <Button key="Edit" onClick={() => handleEdit(clickIndex)}>
+                                Edit
+                            </Button>,
+
+                            showUpdate && (
+                                <Button key="Add" onClick={() => handleItems()}>
+                                    Update
+                                </Button>),
+
+                            <Button key="Delete" type="primary" danger onClick={() => handleDelete(clickIndex)}>
+                                Delete
+                            </Button>
+                        ]}>
+                            <h1 className='font-semibold mb-5 border-b  text-xl'>{message.heading}</h1>
+                            <h1 className='mb-8'>{message.des}</h1>
+                        </Modal>
+                    }
+
+
+
+                    {/* Univarsal modal */}
+                    <Modal open={isUniModalOpen} onCancel={handleCancel} footer={[
+                        <Button key="Add" onClick={handleItems}>
+                            Add
                         </Button>
                     ]}>
                         <h1 className='font-semibold'> Heading :</h1>
-                        <Input className='w-3/4 mb-5' placeholder="Enter heading..." value={items} onChange={(e) => setItems(e.target.value)} />
+                        <Input className='w-5/6 mb-8' placeholder="Enter Heading..." value={items} onChange={(e) => setItems(e.target.value)} />
+
                         <h1 className='font-semibold'>Description :</h1>
                         <TextArea placeholder='Enter description...' rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
 
+
                     </Modal>
 
-                    :
+                    <FloatButton icon={<IoIosAdd />} onClick={() => setIsUniModalOpen(true)} />
 
-                    <Modal open={isModalOpen} onCancel={handleCancel} footer={[
+                </div>
+            </div >
 
-                        <Button key="Edit" onClick={() => handleEdit(clickIndex)}>
-                            Edit
-                        </Button>,
-
-                        showUpdate && (
-                            <Button key="Add" onClick={() => handleItems()}>
-                                Update
-                            </Button>),
-
-                        <Button key="Delete" type="primary" danger onClick={() => handleDelete(clickIndex)}>
-                            Delete
-                        </Button>
-                    ]}>
-                        <h1 className='font-semibold mb-5 border-b text-xl'>{message.heading}</h1>
-                        <h1 className='mb-8'>{message.des}</h1>
-                    </Modal>
-                }
-
-
-
-                {/* Univarsal modal */}
-                <Modal open={isUniModalOpen} onCancel={handleCancel} footer={[
-                    <Button key="Add" onClick={handleItems}>
-                        Add
-                    </Button>
-                ]}>
-                    <h1 className='font-semibold'> Heading :</h1>
-                    <Input className='w-5/6 mb-8' placeholder="Enter Heading..." value={items} onChange={(e) => setItems(e.target.value)} />
-
-                    <h1 className='font-semibold'>Description :</h1>
-                    <TextArea placeholder='Enter description...' rows={4} value={description} onChange={(e) => setDescription(e.target.value)} />
-
-
-                </Modal>
-
-                <FloatButton icon={<IoIosAdd />} onClick={() => setIsUniModalOpen(true)} />
-
-            </div>
-        </div >
-
+        </div>
     )
 }
 
