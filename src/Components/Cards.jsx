@@ -83,39 +83,55 @@ const Cards = ({ allItems, setAllItems, filteredItems, setFilteredItems }) => {
 
     //DELETE ITEM
     const handleDelete = (index) => {
+        if (filteredItems[index]) {
+            const originalIndex = filteredItems[index].originalIndex; // Get original index
+            const deletedItems = allItems.filter((val, i) => i !== originalIndex); // Use original index for deletion
 
-        // const deletedItems = filteredItems.filter((val, i) => i !== index)
-        const deletedItems = allItems.filter((val, i) => i !== index)
-
-        // setFilteredItems(deletedItems)
-        setAllItems(deletedItems)
-
-        console.log(deletedItems);
-        setIsModalOpen(false);
-
-    }
+            console.log("Deleting item at originalIndex:", originalIndex); // Debug log
+            setAllItems(deletedItems);
+            setIsModalOpen(false);
+            setClickIndex(""); // Reset clickIndex after deletion
+        } else {
+            console.error("Item not found in filteredItems"); // If item not found
+        }
+    };
 
     //EDIT ITEM
     const handleEdit = (index) => {
+        console.log("edit me hu");
+        console.log(index);
+        console.log(filteredItems[index]);
 
-        setItems(filteredItems[index].heading)
-        setDescription(filteredItems[index].des)
-        // setItems(allItems[index].heading)
-        // setDescription(allItems[index].des)
 
-        setShowUpdate(true)
+        if (filteredItems[index]) {
+            const originalIndex = filteredItems[index].originalIndex;
+            setItems(filteredItems[index].heading);
+            setDescription(filteredItems[index].des);
+            setShowUpdate(true);
+            setEditIndex(originalIndex);  // Store original index for editing
 
-        setEditIndex(index)
-
-        setShowInput(true)
+            console.log("Editing item at originalIndex:", originalIndex); // Debug log
+            setShowInput(true);
+        } else {
+            console.error("Item not found in filteredItems"); // If item not found
+        }
     }
 
     const handleClickCard = (index) => {
-        setClickIndex(index)
-        setMessage(filteredItems[index])
-        // setMessage(allItems[index])
-        setIsModalOpen(true)
-    }
+        const originalIndex = filteredItems[index]?.originalIndex;
+        console.log("card clicked");
+
+        console.log(originalIndex);
+
+        if (originalIndex !== undefined) {
+            setClickIndex(originalIndex);  // Use original index for delete/edit actions
+            setIsModalOpen(true);
+            setMessage(filteredItems[index]); // Show card content based on filteredItems
+        } else {
+            console.error("Card not found at this index in filteredItems");
+        }
+    };
+
 
 
     // const itemsToDisplay = (filteredItems && filteredItems.length) ? filteredItems : allItems

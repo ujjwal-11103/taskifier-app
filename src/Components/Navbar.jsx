@@ -17,19 +17,17 @@ const Navbar = ({ allItems, setFilteredItems }) => {
     const [searchItem, setSearchItem] = useState("")
     // const [filteredItems, setFilteredItems] = useState(allItems)
 
-
-
     useEffect(() => {
+        const filtered = allItems
+            .map((item, index) => ({ ...item, originalIndex: index }))  // Add original index to each item
+            .filter((val) =>
+                val?.heading?.toLowerCase().includes(searchItem.toLowerCase()) ||
+                val.des.toLowerCase().includes(searchItem.toLowerCase())
+            );
 
-        const filtered = allItems.filter((val) =>
-            val?.heading?.toLowerCase().includes(searchItem.toLowerCase()) ||
-            val.des.toLowerCase().includes(searchItem.toLowerCase())
-        )
+        setFilteredItems(filtered);
+    }, [searchItem, allItems]);
 
-        console.log("filterd items in Navbar= ", filtered);
-        setFilteredItems(filtered)
-
-    }, [searchItem, allItems])
 
     return (
         <div>
@@ -131,6 +129,8 @@ const Navbar = ({ allItems, setFilteredItems }) => {
                             <input
                                 type="text"
                                 id="search-navbar-mobile"
+                                value={searchItem}
+                                onChange={(e) => setSearchItem(e.target.value)}
                                 className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Search..."
                             />
