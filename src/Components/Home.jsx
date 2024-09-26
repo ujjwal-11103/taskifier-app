@@ -15,7 +15,7 @@ const Home = () => {
 
             <Navbar allItems={allItems} setAllItems={setAllItems} setFilteredItems={setFilteredItems} />
             <Slider />
-            <Cards allItems={allItems} setAllItems={setAllItems} filteredItems={filteredItems} />
+            <Cards allItems={allItems} setAllItems={setAllItems} filteredItems={filteredItems} setFilteredItems={setFilteredItems} />
 
         </div>
 

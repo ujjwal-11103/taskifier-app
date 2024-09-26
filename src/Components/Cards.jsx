@@ -8,9 +8,9 @@ import { IoIosAdd } from "react-icons/io";
 
 
 
-const Cards = ({ allItems, setAllItems, filteredItems }) => {
+const Cards = ({ allItems, setAllItems, filteredItems, setFilteredItems }) => {
 
-    console.log('Filtered Items in Cards = ', filteredItems);
+    // console.log('Filtered Items in Cards = ', filteredItems);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isUniModalOpen, setIsUniModalOpen] = useState(false);
@@ -48,8 +48,12 @@ const Cards = ({ allItems, setAllItems, filteredItems }) => {
 
         if (editIndex !== null) {
 
+            // const editedItems = filteredItems.map((val, ind) => (ind === editIndex ? bothValues : val))
             const editedItems = allItems.map((val, ind) => (ind === editIndex ? bothValues : val))
+
+            // setFilteredItems(editedItems)
             setAllItems(editedItems)
+
             setEditIndex(null)  // Reset edit mode
 
             console.log("Edit", editedItems);
@@ -69,13 +73,21 @@ const Cards = ({ allItems, setAllItems, filteredItems }) => {
 
     useEffect(() => {
         console.log("All items", allItems);
-    }, [allItems])
+        console.log("All Filtered items", filteredItems);
+    }, [filteredItems, allItems])
+
+    // useEffect(() => {
+    //     console.log("All items", allItems);
+    //     console.log("All Filtered items", allItems);
+    // }, [allItems])
 
     //DELETE ITEM
     const handleDelete = (index) => {
 
+        // const deletedItems = filteredItems.filter((val, i) => i !== index)
         const deletedItems = allItems.filter((val, i) => i !== index)
 
+        // setFilteredItems(deletedItems)
         setAllItems(deletedItems)
 
         console.log(deletedItems);
@@ -86,8 +98,10 @@ const Cards = ({ allItems, setAllItems, filteredItems }) => {
     //EDIT ITEM
     const handleEdit = (index) => {
 
-        setItems(allItems[index].heading)
-        setDescription(allItems[index].des)
+        setItems(filteredItems[index].heading)
+        setDescription(filteredItems[index].des)
+        // setItems(allItems[index].heading)
+        // setDescription(allItems[index].des)
 
         setShowUpdate(true)
 
@@ -98,10 +112,13 @@ const Cards = ({ allItems, setAllItems, filteredItems }) => {
 
     const handleClickCard = (index) => {
         setClickIndex(index)
-        setMessage(allItems[index])
+        setMessage(filteredItems[index])
+        // setMessage(allItems[index])
         setIsModalOpen(true)
     }
 
+
+    // const itemsToDisplay = (filteredItems && filteredItems.length) ? filteredItems : allItems
 
     return (
         <div className='bg-black text-white text-3xl font-semibold py-2'>
@@ -111,35 +128,123 @@ const Cards = ({ allItems, setAllItems, filteredItems }) => {
 
 
                 <div className="flex justify-between items-start flex-wrap gap-y-9 p-8">
-                    
 
-                    {allItems.length !== 0 ?
-                        <>
-                            {allItems.map((val, i) => (
+                    {
+                        filteredItems.length !== 0 ?
+                            <>
+                                {filteredItems.map((val, i) => (
 
-                                <div key={i} className="p-2">
+                                    <div key={i} className="p-2">
 
-                                    <Card
-                                        className='cursor-pointer'
-                                        title={val.heading}
-                                        onClick={() => handleClickCard(i)}
-                                        bordered={false}
-                                        style={{
-                                            width: 300,
-                                        }}
-                                    >
-                                        <h1>{val.des}</h1>
+                                        <Card
+                                            className='cursor-pointer'
+                                            title={val.heading}
+                                            onClick={() => handleClickCard(i)}
+                                            bordered={false}
+                                            style={{
+                                                width: 300,
+                                            }}
+                                        >
+                                            <h1>{val.des}</h1>
 
-                                    </Card>
+                                        </Card>
 
-                                </div>
-                            ))}
-                        </>
-                        :
-                        <>
-                            <h1>No items yet</h1>
-                        </>
+
+                                    </div>
+                                ))}
+                            </>
+                            :
+                            <h1>No items Found</h1>
                     }
+
+                    {/* {
+                        filteredItems ?
+                            <>
+                                {filteredItems.map((val, i) => (
+
+                                    <div key={i} className="p-2">
+
+                                        <Card
+                                            className='cursor-pointer'
+                                            title={val.heading}
+                                            onClick={() => handleClickCard(i)}
+                                            bordered={false}
+                                            style={{
+                                                width: 300,
+                                            }}
+                                        >
+                                            <h1>{val.des}</h1>
+
+                                        </Card>
+
+
+                                    </div>
+                                ))}
+                                {
+                                    filteredItems.length == 0 ? <h1>No items Found</h1> : ""
+                                }
+                            </>
+                            :
+
+                            allItems.length !== 0 ?
+                                <>
+                                    {allItems.map((val, i) => (
+
+                                        <div key={i} className="p-2">
+
+                                            <Card
+                                                className='cursor-pointer'
+                                                title={val.heading}
+                                                onClick={() => handleClickCard(i)}
+                                                bordered={false}
+                                                style={{
+                                                    width: 300,
+                                                }}
+                                            >
+                                                <h1>{val.des}</h1>
+
+                                            </Card>
+
+                                        </div>
+                                    ))}
+                                </>
+                                :
+                                <>
+                                    <h1>No items yet</h1>
+                                </>
+
+
+                    } */}
+
+                    {/* {
+                        itemsToDisplay && itemsToDisplay.length !== 0 ?
+                            <>
+                                {itemsToDisplay.map((val, i) => (
+
+                                    <div key={i} className="p-2">
+
+                                        <Card
+                                            className='cursor-pointer'
+                                            title={val.heading}
+                                            onClick={() => handleClickCard(i)}
+                                            bordered={false}
+                                            style={{
+                                                width: 300,
+                                            }}
+                                        >
+                                            <h1>{val.des}</h1>
+
+                                        </Card>
+
+                                    </div>
+                                ))}
+                            </>
+                            :
+                            <>
+                                <h1>No items yet</h1>
+                            </>
+                    } */}
+
 
                     {/* Card modal */}
 

@@ -26,7 +26,7 @@ const Navbar = ({ allItems, setFilteredItems }) => {
             val.des.toLowerCase().includes(searchItem.toLowerCase())
         )
 
-        console.log("filterd items = ", filtered);
+        console.log("filterd items in Navbar= ", filtered);
         setFilteredItems(filtered)
 
     }, [searchItem, allItems])
