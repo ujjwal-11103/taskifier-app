@@ -5,15 +5,17 @@ import Slider from './Slider'
 
 const Home = () => {
 
+    const [allItems, setAllItems] = useState([])
 
+    const [filteredItems, setFilteredItems] = useState(allItems)
 
 
     return (
         <div>
 
-            <Navbar />
+            <Navbar allItems={allItems} setAllItems={setAllItems} setFilteredItems={setFilteredItems} />
             <Slider />
-            <Cards />
+            <Cards allItems={allItems} setAllItems={setAllItems} filteredItems={filteredItems} />
 
         </div>
 

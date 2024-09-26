@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from 'antd';
 import { Button, Modal } from 'antd';
 import { Input } from 'antd';
@@ -8,7 +8,9 @@ import { IoIosAdd } from "react-icons/io";
 
 
 
-const Cards = () => {
+const Cards = ({ allItems, setAllItems, filteredItems }) => {
+
+    console.log('Filtered Items in Cards = ', filteredItems);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isUniModalOpen, setIsUniModalOpen] = useState(false);
@@ -29,7 +31,6 @@ const Cards = () => {
     const { TextArea } = Input;
 
     const [items, setItems] = useState("")
-    const [allItems, setAllItems] = useState([])
     const [editIndex, setEditIndex] = useState(null)
     const [description, setDescription] = useState("")
 
@@ -63,9 +64,12 @@ const Cards = () => {
         setIsUniModalOpen(false)
         setShowUpdate(false)
         setShowInput(false)
-        console.log("All items", allItems);
 
     }
+
+    useEffect(() => {
+        console.log("All items", allItems);
+    }, [allItems])
 
     //DELETE ITEM
     const handleDelete = (index) => {
@@ -107,6 +111,7 @@ const Cards = () => {
 
 
                 <div className="flex justify-between items-start flex-wrap gap-y-9 p-8">
+                    
 
                     {allItems.length !== 0 ?
                         <>

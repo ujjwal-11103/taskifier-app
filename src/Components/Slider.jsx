@@ -12,7 +12,7 @@ import { BiArrowBack } from "react-icons/bi";
 const Slider = () => {
     const images = [img1, img2, img3]
 
-    console.log(images.length);
+    // console.log(images.length);
 
     const [count, setCount] = useState(0)
 
@@ -40,9 +40,9 @@ const Slider = () => {
         return () => clearInterval(intervaId)
     }, [count])
 
-    useEffect(() => {
-        console.log("Count = ", count);
-    }, [count])
+    // useEffect(() => {
+    //     console.log("Count = ", count);
+    // }, [count])
 
     return (
         <div className='flex justify-around items-center bg-black border-b-2 border-b-slate-400'>
