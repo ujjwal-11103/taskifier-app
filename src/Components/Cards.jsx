@@ -76,10 +76,8 @@ const Cards = ({ allItems, setAllItems, filteredItems, setFilteredItems }) => {
         console.log("All Filtered items", filteredItems);
     }, [filteredItems, allItems])
 
-    // useEffect(() => {
-    //     console.log("All items", allItems);
-    //     console.log("All Filtered items", allItems);
-    // }, [allItems])
+
+
 
     //DELETE ITEM
     const handleDelete = (index) => {
@@ -100,17 +98,17 @@ const Cards = ({ allItems, setAllItems, filteredItems, setFilteredItems }) => {
     const handleEdit = (index) => {
         console.log("edit me hu");
         console.log(index);
-        console.log(filteredItems[index]);
+        console.log(allItems[index]);
 
 
-        if (filteredItems[index]) {
-            const originalIndex = filteredItems[index].originalIndex;
-            setItems(filteredItems[index].heading);
-            setDescription(filteredItems[index].des);
+        if (allItems[index]) {
+            const originalItem = allItems[index]
+            setItems(allItems[index].heading);
+            setDescription(allItems[index].des);
             setShowUpdate(true);
-            setEditIndex(originalIndex);  // Store original index for editing
+            setEditIndex(index);  // Store original index for editing
 
-            console.log("Editing item at originalIndex:", originalIndex); // Debug log
+            console.log("Editing item at originalIndex:", originalItem); // Debug log
             setShowInput(true);
         } else {
             console.error("Item not found in filteredItems"); // If item not found
@@ -132,9 +130,6 @@ const Cards = ({ allItems, setAllItems, filteredItems, setFilteredItems }) => {
         }
     };
 
-
-
-    // const itemsToDisplay = (filteredItems && filteredItems.length) ? filteredItems : allItems
 
     return (
         <div className='bg-black text-white text-3xl font-semibold py-2'>
@@ -172,94 +167,6 @@ const Cards = ({ allItems, setAllItems, filteredItems, setFilteredItems }) => {
                             :
                             <h1>No items Found</h1>
                     }
-
-                    {/* {
-                        filteredItems ?
-                            <>
-                                {filteredItems.map((val, i) => (
-
-                                    <div key={i} className="p-2">
-
-                                        <Card
-                                            className='cursor-pointer'
-                                            title={val.heading}
-                                            onClick={() => handleClickCard(i)}
-                                            bordered={false}
-                                            style={{
-                                                width: 300,
-                                            }}
-                                        >
-                                            <h1>{val.des}</h1>
-
-                                        </Card>
-
-
-                                    </div>
-                                ))}
-                                {
-                                    filteredItems.length == 0 ? <h1>No items Found</h1> : ""
-                                }
-                            </>
-                            :
-
-                            allItems.length !== 0 ?
-                                <>
-                                    {allItems.map((val, i) => (
-
-                                        <div key={i} className="p-2">
-
-                                            <Card
-                                                className='cursor-pointer'
-                                                title={val.heading}
-                                                onClick={() => handleClickCard(i)}
-                                                bordered={false}
-                                                style={{
-                                                    width: 300,
-                                                }}
-                                            >
-                                                <h1>{val.des}</h1>
-
-                                            </Card>
-
-                                        </div>
-                                    ))}
-                                </>
-                                :
-                                <>
-                                    <h1>No items yet</h1>
-                                </>
-
-
-                    } */}
-
-                    {/* {
-                        itemsToDisplay && itemsToDisplay.length !== 0 ?
-                            <>
-                                {itemsToDisplay.map((val, i) => (
-
-                                    <div key={i} className="p-2">
-
-                                        <Card
-                                            className='cursor-pointer'
-                                            title={val.heading}
-                                            onClick={() => handleClickCard(i)}
-                                            bordered={false}
-                                            style={{
-                                                width: 300,
-                                            }}
-                                        >
-                                            <h1>{val.des}</h1>
-
-                                        </Card>
-
-                                    </div>
-                                ))}
-                            </>
-                            :
-                            <>
-                                <h1>No items yet</h1>
-                            </>
-                    } */}
 
 
                     {/* Card modal */}
