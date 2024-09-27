@@ -44,6 +44,14 @@ const Slider = () => {
     //     console.log("Count = ", count);
     // }, [count])
 
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Handle when image has loaded
+    const handleImageLoad = () => {
+      setIsLoading(false);
+    };
+  
     return (
         <div className='flex justify-around items-center bg-black border-b-2 border-b-slate-400'>
 
@@ -55,7 +63,7 @@ const Slider = () => {
 
             <div className="w-60 ">
                 <h3 className='text-center text-white'>Image {count + 1}</h3>
-                <img src={images[count]} className='rounded my-2 mb-5' alt="img" />
+                <img src={images[count]} loading='lazy' className='rounded my-2 mb-5' alt="img" />
             </div>
 
             <div className=" border rounded-full flex justify-center items-center p-3">
