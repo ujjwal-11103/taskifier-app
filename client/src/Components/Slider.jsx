@@ -45,13 +45,6 @@ const Slider = () => {
     // }, [count])
 
 
-    const [isLoading, setIsLoading] = useState(true);
-
-    // Handle when image has loaded
-    const handleImageLoad = () => {
-      setIsLoading(false);
-    };
-  
     return (
         <div className='flex justify-around items-center bg-black border-b-2 border-b-slate-400'>
 
